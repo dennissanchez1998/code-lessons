@@ -1,5 +1,7 @@
-const { Schema, model } = require('mongoose');
-
+const {
+  Schema,
+  model
+} = require('mongoose');
 const userSchema = new Schema(
   {
     username: {
@@ -11,15 +13,18 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, 'Email is required.'],
+      match: [/^\S+@\S+\.\S+$/, 'usa un correo valido pajuo'],
       unique: true,
       lowercase: true,
       trim: true
+    },
+    passwordHash: {
+        type: String,
+        required: [true, 'Password is required']
     }
-    // add password property here
   },
   {
     timestamps: true
   }
 );
-
 module.exports = model('User', userSchema);
